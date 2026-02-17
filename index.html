@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Calculadora de Pace | Corrida de Rua</title>
+
+<meta name="description" content="Calcule seu pace por km, velocidade média e tempo total de corrida. Ideal para corredores de rua.">
+<meta name="robots" content="index, follow">
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<style>
+:root {
+    --primary: #ff5722;
+    --bg: #f4f6f9;
+    --card: #ffffff;
+    --text: #222;
+    --danger-bg: #ffebee;
+    --danger-text: #c62828;
+}
+
+body.dark {
+    --bg: #121212;
+    --card: #1e1e1e;
+    --text: #f5f5f5;
+    --danger-bg: #3a1f1f;
+    --danger-text: #ff8a80;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    transition: 0.3s ease;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    margin: 30px 15px;
+}
+
+.card {
+    background: var(--card);
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+h1 {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 15px;
+    display: block;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    outline: none;
+}
+
+input:focus {
+    border-color: var(--primary);
+}
+
+.tempo-group {
+    display: flex;
+    gap: 10px;
+}
+
+.tempo-group input {
+    text-align: center;
+}
+
+button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    background: var(--primary);
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: scale(1.02);
+}
+
+.toggle-theme {
+    text-align: right;
+    font-size: 13px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+.erro {
+    display: none;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    background: var(--danger-bg);
+    color: var(--danger-text);
+    font-size: 14px;
+}
+
+.resultado {
+    display: none;
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 18px;
+    background: #fff3e0;
+    color: #263238;
+    border: 1px solid #bbdefb;
+    transition: 0.3s ease;
+}
+
+body.dark .resultado {
+    background: linear-gradient(135deg, #ff7043, #ff5722);
+    color: white;
+    border: 1px solid #37474f;
+}
+
+.resultado p {
+    margin: 8px 0;
+    font-size: 15px;
+}
+
+footer {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 20px;
+    opacity: 0.7;
+}
+
+/* Melhor UX mobile */
+@media(max-width: 480px){
+    h1 {
+        font-size: 18px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+
+        <div class="toggle-theme">🌙 Alternar Modo</div>
+
+        <h1>Calculadora de Pace</h1>
+
+        <label>Distância (km)</label>
+        <input type="number" id="distancia" step="0.01" placeholder="Ex: 5.2">
+
+        <label>Tempo Total</label>
+        <div class="tempo-group">
+            <input type="number" id="horas" placeholder="H" min="0">
+            <input type="number" id="minutos" placeholder="Min" min="0">
+            <input type="number" id="segundos" placeholder="Seg" min="0">
+        </div>
+
+        <div id="erro" class="erro"></div>
+
+        <button id="calcular">Calcular</button>
+
+        <div class="resultado" id="resultado">
+            <p><strong>Distância:</strong> <span id="resDistancia"></span> km</p>
+            <p><strong>Tempo:</strong> <span id="resTempo"></span></p>
+            <p><strong>Pace:</strong> <span id="resPace"></span> min/km</p>
+            <p><strong>Velocidade:</strong> <span id="resVelocidade"></span> km/h</p>
+        </div>
+
+        <footer>
+            Ferramenta gratuita para corredores de rua.
+        </footer>
+
+    </div>
+</div>
+
+<script>
+$(document).ready(function(){
+
+    // Alternar modo escuro
+    $(".toggle-theme").click(function(){
+        $("body").toggleClass("dark");
+    });
+
+    $("#calcular").click(function(){
+
+        $("#erro").hide();
+        $("#resultado").hide();
+
+        const distancia = parseFloat($("#distancia").val());
+        const horas = parseInt($("#horas").val()) || 0;
+        const minutos = parseInt($("#minutos").val()) || 0;
+        const segundos = parseInt($("#segundos").val()) || 0;
+
+        const tempoTotalSegundos = (horas * 3600) + (minutos * 60) + segundos;
+
+        if(!distancia || distancia <= 0){
+            $("#erro").text("Informe uma distância válida maior que zero.").fadeIn();
+            return;
+        }
+
+        if(tempoTotalSegundos <= 0){
+            $("#erro").text("Informe um tempo válido.").fadeIn();
+            return;
+        }
+
+        const velocidade = distancia / (tempoTotalSegundos / 3600);
+
+        const paceSegundos = tempoTotalSegundos / distancia;
+
+        let paceMin = Math.floor(paceSegundos / 60);
+        let paceSec = Math.round(paceSegundos % 60);
+
+        if (paceSec === 60) {
+            paceMin += 1;
+            paceSec = 0;
+        }
+
+        const tempoFormatado = 
+            String(horas).padStart(2,'0') + ":" +
+            String(minutos).padStart(2,'0') + ":" +
+            String(segundos).padStart(2,'0');
+
+        $("#resDistancia").text(distancia.toFixed(2));
+        $("#resTempo").text(tempoFormatado);
+        $("#resPace").text(paceMin + ":" + String(paceSec).padStart(2,'0'));
+        $("#resVelocidade").text(velocidade.toFixed(2));
+
+        $("#resultado").fadeIn(300);
+    });
+
+});
+</script>
+
+</body>
+</html>
