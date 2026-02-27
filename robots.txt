@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pacerunner.com.br/sitemap.xml
