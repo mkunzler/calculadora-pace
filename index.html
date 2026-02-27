@@ -23,6 +23,8 @@
 <!-- Manifest -->
 <link rel="manifest" href="site.webmanifest">
 
+<link rel="canonical" href="https://pacerunner.com.br/">
+
 <meta name="theme-color" content="#ff5722">
 
 <meta name="description" content="Calcule seu pace por km, velocidade média e tempo total de corrida. Ideal para corredores de rua.">
@@ -166,6 +168,37 @@ body.dark .resultado {
     font-size: 15px;
 }
 
+.conteudo-seo {
+    margin-top: 40px;
+    padding: 25px;
+    background: var(--card);
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+    transition: 0.3s ease;
+}
+
+.conteudo-seo h2 {
+    margin-top: 0;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.conteudo-seo p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.conteudo-seo li {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+body.dark .conteudo-seo {
+    background: #1e1e1e;
+}
+
 footer {
     text-align: center;
     font-size: 12px;
@@ -216,6 +249,30 @@ footer {
         </footer>
 
     </div>
+
+    <section class="conteudo-seo">
+        <h2>O que é pace na corrida?</h2>
+
+        <p>
+            O <strong>pace na corrida</strong> é o tempo que você leva para percorrer 1 quilômetro. Ele é normalmente representado no formato minutos por quilômetro (min/km).
+        </p>
+
+        <p>
+            Por exemplo:
+            <ul>
+                <li>Pace 5:00 significa que você corre 1 km em 5 minutos.</li>
+                <li>Pace 4:30 significa que você corre 1 km em 4 minutos e 30 segundos.</li>
+            </ul>
+        </p>
+        <p>
+            Diferente da velocidade em km/h, o pace é mais utilizado por corredores porque facilita o controle do ritmo durante treinos e provas.
+        </p>
+        <p>
+            Utilizar uma <strong>calculadora de pace</strong> permite que você
+            acompanhe sua evolução, planeje provas de 5k, 10k, meia maratona
+            ou maratona e mantenha um ritmo constante durante seus treinos.
+        </p>
+    </section>
 </div>
 
 <script>
