@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Teste de Léger (Beep Test): o que é e como funciona</title>
+
+    <!-- Favicon padrão -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+    <!-- PNG Favicons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+
+    <!-- Android -->
+    <link rel="icon" type="image/png" sizes="192x192" href="images/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="images/android-chrome-512x512.png">
+
+    <!-- Apple -->
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+    <!-- Manifest -->
+    <link rel="manifest" href="site.webmanifest">
+
+    <link rel="canonical" href="https://pacerunner.com.br/teste-de-leger.html">
+
+    <meta name="theme-color" content="#ff5722">
+
+    <meta name="description"
+        content="Entenda o que é o Teste de Léger, como funciona o Beep Test e como ele avalia o condicionamento físico e o VO2 máximo.">
+
+
+</head>
+<style>
+    :root {
+        --primary: #ff5722;
+        --bg: #f4f6f9;
+        --card: #ffffff;
+        --text: #222;
+        --danger-bg: #ffebee;
+        --danger-text: #c62828;
+    }
+
+    body.dark {
+        --bg: #121212;
+        --card: #1e1e1e;
+        --text: #f5f5f5;
+        --danger-bg: #3a1f1f;
+        --danger-text: #ff8a80;
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        display: flex;
+        justify-content: center;
+        transition: 0.3s ease;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 30px 15px;
+    }
+
+    .card {
+        background: var(--card);
+        padding: 25px;
+        border-radius: 18px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: 0.3s;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-size: 13px;
+        font-weight: 600;
+        margin-top: 15px;
+        display: block;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        margin-top: 6px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        outline: none;
+    }
+
+    input:focus {
+        border-color: var(--primary);
+    }
+
+    .tempo-group {
+        display: flex;
+        gap: 10px;
+    }
+
+    .tempo-group input {
+        text-align: center;
+    }
+
+    button {
+        width: 100%;
+        margin-top: 20px;
+        padding: 14px;
+        border-radius: 14px;
+        border: none;
+        background: var(--primary);
+        color: white;
+        font-weight: bold;
+        font-size: 15px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    button:hover {
+        transform: scale(1.02);
+    }
+
+    .toggle-theme {
+        text-align: right;
+        font-size: 13px;
+        cursor: pointer;
+        margin-bottom: 10px;
+        opacity: 0.8;
+    }
+
+    .erro {
+        display: none;
+        margin-top: 15px;
+        padding: 10px;
+        border-radius: 10px;
+        background: var(--danger-bg);
+        color: var(--danger-text);
+        font-size: 14px;
+    }
+
+    .resultado {
+        display: none;
+        margin-top: 25px;
+        padding: 20px;
+        border-radius: 18px;
+        background: #fff3e0;
+        color: #263238;
+        border: 1px solid #bbdefb;
+        transition: 0.3s ease;
+    }
+
+    body.dark .resultado {
+        background: linear-gradient(135deg, #ff7043, #ff5722);
+        color: white;
+        border: 1px solid #37474f;
+    }
+
+    .resultado p {
+        margin: 8px 0;
+        font-size: 15px;
+    }
+
+    .conteudo-seo {
+        margin-top: 40px;
+        padding: 25px;
+        background: var(--card);
+        border-radius: 18px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+        transition: 0.3s ease;
+    }
+
+    .conteudo-seo h2 {
+        margin-top: 0;
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .conteudo-seo p {
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+
+    .conteudo-seo li {
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+
+    .tabela-leger {
+        margin-top: 20px;
+        overflow-x: auto;
+    }
+
+    .tabela-leger table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .tabela-leger th {
+        background: var(--primary);
+        color: white;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .tabela-leger td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .tabela-leger tr:nth-child(even) {
+        background: #f5f5f5;
+    }
+
+    body.dark .tabela-leger tr:nth-child(even) {
+        background: #2a2a2a;
+    }
+
+    body.dark .conteudo-seo {
+        background: #1e1e1e;
+    }
+
+    footer {
+        text-align: center;
+        font-size: 12px;
+        margin-top: 20px;
+        opacity: 0.7;
+    }
+
+    /* Melhor UX mobile */
+    @media(max-width: 480px) {
+        h1 {
+            font-size: 18px;
+        }
+    }
+</style>
+
+<body>
+
+    <div class="container">
+
+        <h1>Teste de Léger (Beep Test): o que é e como funciona</h1>
+
+        <p>
+            O <strong>Teste de Léger</strong>, também conhecido como <strong>Beep Test</strong>,
+            é um teste físico utilizado para avaliar o condicionamento cardiovascular e a
+            capacidade aeróbica de uma pessoa. Ele foi desenvolvido pelo pesquisador
+            canadense <strong>Luc Léger</strong> e é amplamente utilizado em avaliações físicas
+            de atletas, militares, policiais e estudantes.
+        </p>
+
+        <p>
+            O principal objetivo do teste é estimar o <strong>VO₂ máximo</strong>,
+            que representa a capacidade do corpo de utilizar oxigênio durante exercícios
+            intensos. Quanto maior o VO₂ máximo, melhor é o desempenho aeróbico do indivíduo.
+        </p>
+
+        <h2>Como funciona o Teste de Léger</h2>
+
+        <p>
+            O teste é realizado em uma área plana com duas linhas marcadas
+            a uma distância de <strong>20 metros</strong>.
+            Os participantes devem correr de uma linha até a outra
+            acompanhando sinais sonoros emitidos por um áudio específico.
+        </p>
+
+        <p>
+            A cada nível do teste, a velocidade aumenta gradualmente.
+            Isso acontece porque o intervalo entre os sinais sonoros diminui,
+            exigindo que o participante corra mais rápido para alcançar a linha
+            antes do próximo beep.
+        </p>
+
+        <p>
+            O teste termina quando o participante não consegue mais acompanhar
+            o ritmo dos sinais sonoros por duas vezes consecutivas.
+        </p>
+
+        <h2>Para que serve o Teste de Léger?</h2>
+
+        <p>
+            O Teste de Léger é utilizado principalmente para avaliar
+            o condicionamento físico e a resistência aeróbica.
+            Ele permite estimar o VO₂ máximo de forma simples e prática,
+            sem a necessidade de equipamentos laboratoriais complexos.
+        </p>
+
+        <p>
+            Esse tipo de avaliação é muito utilizado em processos seletivos
+            de forças de segurança, treinamentos esportivos e avaliações
+            de educação física em escolas e universidades.
+        </p>
+
+        <h2>Tabela de níveis e velocidades do Teste de Léger</h2>
+
+        <p>
+            Durante o Teste de Léger, a velocidade aumenta progressivamente
+            a cada nível. A tabela abaixo mostra uma referência aproximada
+            de velocidades utilizadas em cada etapa do teste.
+        </p>
+
+        <div class="tabela-leger">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nível</th>
+                        <th>Velocidade (km/h)</th>
+                        <th>Pace equivalente</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>8.5</td>
+                        <td>7:03 min/km</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>9.0</td>
+                        <td>6:40 min/km</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>9.5</td>
+                        <td>6:19 min/km</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>10.0</td>
+                        <td>6:00 min/km</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>10.5</td>
+                        <td>5:43 min/km</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>11.0</td>
+                        <td>5:27 min/km</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>11.5</td>
+                        <td>5:13 min/km</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>12.0</td>
+                        <td>5:00 min/km</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>12.5</td>
+                        <td>4:48 min/km</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>13.0</td>
+                        <td>4:37 min/km</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>13.5</td>
+                        <td>4:26 min/km</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>14.0</td>
+                        <td>4:17 min/km</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>14.5</td>
+                        <td>4:08 min/km</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td>15.0</td>
+                        <td>4:00 min/km</td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td>15.5</td>
+                        <td>3:52 min/km</td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <p>
+            Cada nível possui vários estágios com corridas de 20 metros.
+            À medida que o teste avança, o intervalo entre os sinais sonoros
+            diminui, exigindo maior velocidade do participante.
+        </p>
+
+        <h2>Dicas para melhorar seu desempenho</h2>
+
+        <p>
+            Para obter melhores resultados no Teste de Léger,
+            é importante manter um bom nível de preparo físico.
+            Algumas estratégias que podem ajudar incluem:
+        </p>
+
+        <ul>
+            <li>Treinar corrida regularmente.</li>
+            <li>Incluir treinos intervalados.</li>
+            <li>Fortalecer musculatura das pernas.</li>
+            <li>Manter alimentação equilibrada.</li>
+            <li>Garantir boa recuperação entre treinos.</li>
+        </ul>
+
+        <p>
+            Se você pratica corrida, acompanhar métricas como
+            <strong>pace</strong>, <strong>tempo de corrida</strong>
+            e <strong>velocidade média</strong> pode ajudar
+            a melhorar o desempenho e alcançar melhores resultados.
+        </p>
+
+        <p>
+            Você também pode utilizar nossa
+            <a href="https://pacerunner.com.br/">calculadora de pace</a>
+            para descobrir seu ritmo médio de corrida.
+        </p>
+
+    </div>
+
+</body>
+
+</html>
